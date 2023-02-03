@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axios';
+import { Link } from 'react-router-dom';
 
 const img_uri = 'https://image.tmdb.org/t/p/original/';
 
-export default function Content(props) {
+export default function Content(props, id) {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -21,14 +22,23 @@ export default function Content(props) {
         <div className=' w-10/12 '>
           <h1 className=' text-6xl mb-5 text-white font-bold '>{props.title}</h1>
           <div className='grid grid-cols-4 gap-9 '>
-            {movies.map((movie) => {
+            {movies.map((movie, index) => {
               return (
                 <div className='' key={movie.id}>
-                  <img  className=' hover:scale-95 transition-all duration-300' src={`${img_uri}${movie.poster_path}`} alt={movie.name} key={movie.id} />
-                  {/* <h3 className='text-lg font-bold text-white' key={movie.id}>
-                    {movie.title} {movie.name}
-                  </h3>
-                  <p key={movie.id}>Release date: {movie.release_date}{movie.first_air_date}</p> */}
+                  <Link to={`detail/${movie.id}`}>
+                    <img className=' hover:scale-95 transition-all duration-300' src={`${img_uri}${movie.poster_path}`} alt={movie.name} key={movie.id} />
+                  </Link>
+                  <div>
+                    <h3 className='text-lg font-bold text-white' key={movie.id}>
+                      {movie.title} {movie.name}
+                    </h3>
+                  </div>
+                  <div>
+                    <p key={movie.id}>
+                      Release date: {movie.release_date}
+                      {movie.first_air_date}
+                    </p>
+                  </div>
                 </div>
               );
             })}

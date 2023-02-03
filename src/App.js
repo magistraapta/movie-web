@@ -1,16 +1,17 @@
-import Header from "./Header";
-import Content from "./component/Content";
-import api from './api'
-import Footer from "./component/Footer";
+import Detail from './component/Detail';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './component/Home';
+import Header from './component/Header';
 function App() {
   return (
-    <div className="bg-black">
-      <Header url={api.fetchTrending}/>
-      <Content title="Trending now" url={api.fetchTrending}/>
-      <Content title="Netflix original" url={api.fetchNetflixOriginals}/>
-      <Content title="Top rated" url={api.fetchTopRated}/>
-      <Footer/>
-    </div>
+    <BrowserRouter>
+      
+      <Routes>
+        <Route path='detail/:id' element={<Detail />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/*' element={<h1>error page</h1>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
